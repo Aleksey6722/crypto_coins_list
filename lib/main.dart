@@ -1,4 +1,7 @@
+import 'package:crypto_coins_list/features/crypto_coin/view/view.dart';
+import 'package:crypto_coins_list/features/crypto_list/view/view.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(const CryptoCurrenciesListApp());
@@ -12,7 +15,19 @@ class CryptoCurrenciesListApp extends StatelessWidget {
     return MaterialApp(
       title: 'CryptoCurrenciesList',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey[900] ,
+        scaffoldBackgroundColor: Colors.grey[900],
+        dividerColor: Colors.white24,
+        appBarTheme: AppBarTheme(
+            backgroundColor: Colors.grey[900],
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+            ),
+        ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.white
+        ),
         primarySwatch: Colors.yellow,
         textTheme: TextTheme(
           bodyMedium: const TextStyle(
@@ -28,52 +43,11 @@ class CryptoCurrenciesListApp extends StatelessWidget {
         )
         // useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Crypto Currencies List'),
+      routes: {
+        '/': (context) => CryptoListScreen(title: 'Crypto Currencies List'),
+        '/coin': (context) => CryptoCoinScreen(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, i) => ListTile(
-            title: Text(
-              'Bitcoin',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            subtitle: Text(
-              '20000\$',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
