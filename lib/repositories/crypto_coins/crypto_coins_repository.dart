@@ -1,4 +1,5 @@
 import 'package:crypto_coins_list/repositories/crypto_coins/abstract_coins_repository.dart';
+import 'package:crypto_coins_list/repositories/crypto_coins/models/crypto_coin_detail.dart';
 import 'package:crypto_coins_list/repositories/crypto_coins/models/models.dart';
 import 'package:dio/dio.dart';
 
@@ -20,12 +21,15 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
     final cryptoCoinsList = dataRaw.entries
         .map((e) {
           final usdData = (e.value as Map<String, dynamic>)['USD'] as Map<String, dynamic>;
-          final price = usdData['PRICE'];
-          final imageUrl = usdData['IMAGEURL'];
           return CryptoCoin(
             name: e.key,
-            priceInUSD: price,
-            imageUrl: 'https://cryptocompare.com/$imageUrl',
+            details: CryptoCoinDetail(
+              priceInUSD: usdData['PRICE'],
+              imageUrl: usdData['IMAGEURL'],
+              toSymbol: usdData['TOSYMBOL'],
+              high24Hour: usdData['HIGH24HOUR'],
+              low24Hour: usdData['LOW24HOUR'],
+            ),
           );
         })
         .toList();

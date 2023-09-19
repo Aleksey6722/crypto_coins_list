@@ -18,10 +18,10 @@ class CryptoCoinTile extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       subtitle: Text(
-        '${coin.priceInUSD}\$',
+        '${coin.details.priceInUSD}\$',
         style: Theme.of(context).textTheme.labelSmall,
       ),
-      leading: Image.network(coin.imageUrl),
+      leading: Image.network(coin.details.fullImageUrl),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: (){
         Navigator.of(context).pushNamed(
